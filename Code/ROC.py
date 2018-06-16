@@ -98,14 +98,14 @@ def ASpectralResidualApproach():
 	subfolders = ['a1', 'a2', 'a3', 'a4']
 	percentages = []
 	for subfolder in subfolders:
-		intensities = getAllIntensities(pathToTruth+'a1/')
+		intensities = getAllIntensities(pathToTruth+subfolder)
 		percentages.append(getPercentages(intensities, percentagesLimit))
 	averagePercentages = get_average_percentage(percentages)
     create_graph(averagePercentages, percentagesLimit)
 	
 def LearningToPredictWhereHumansLook():
 	percentagesLimit = [0.01, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]
-	pathToTruth = 'Truth'
+	pathToTruth = 'Truth/'
     intensities = getAllIntensities(pathToTruth)
 	percentages = getPercentages(intensities, percentagesLimit)
 	create_graph(percentages, percentagesLimit)
