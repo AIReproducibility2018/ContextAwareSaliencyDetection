@@ -47,7 +47,6 @@ namespace MyImplementation
             }
             Array.Sort(_scales);
             Array.Reverse(_scales);
-//            Console.WriteLine(string.Join(",", _scales));
             var resizedImage = ReadAndResizeImage(path);
             _gaussianHorizontalVariance = _width / 6.0;
             _gaussianVerticalVariance = _height / 6.0;
@@ -57,10 +56,8 @@ namespace MyImplementation
             CreatePatches();
             SortPatches();
             var maximumsR = CalculateSaliencyR();
-            //PrintSomeValues();
             FindAttendedPoints(maximumsR);
             CalculateSaliencyAvg(maximumsR);
-            //PrintSomeValues();
         }
 
         private void PrintSomeValues()
@@ -96,10 +93,6 @@ namespace MyImplementation
                 {
                     var pixelColor = resizedImage.GetPixel(x, y);
                     var input = new RGBColor(pixelColor.R / 255.0, pixelColor.G / 255.0, pixelColor.B / 255.0);
-//                    if (pixelColor.R != 0 || pixelColor.G != 0 || pixelColor.B != 0)
-//                    {
-//                        Console.WriteLine(x+", "+y+" "+" "+pixelColor.R + "\t" + pixelColor.G + "\t" + pixelColor.B);
-//                    }
                     _pixels[x][y] = new SalientPixel(converter.ToLab(input), x, y, _numberOfScales);
                 }
             }
@@ -114,9 +107,7 @@ namespace MyImplementation
             {
                 for (var rowIndex = 0; rowIndex < _pixels[colIndex].Length; rowIndex++)
                 {
-                    var maxShift = _scales.Max();
-//                    Console.WriteLine("\n\n["+colIndex+","+rowIndex+"] - Maxshift: "+maxShift);
-                    
+                    var maxShift = _scales.Max();  
                     var tempPatches = new List<List<LabColor>>();
                     for (var i = 0; i < _scales.Length; i++)
                     {
@@ -138,7 +129,6 @@ namespace MyImplementation
                                 continue;
                             }
                             tempPatches[0].Add(_pixels[col][row].Color);
-//                            Console.Write(" ["+col+","+row+"]");
                             for (var i = 1; i < _numberOfScales; i++)
                             {
                                 if (Math.Abs(rowShift) <= _scales[i] && Math.Abs(colShift) <= _scales[i])
@@ -159,15 +149,6 @@ namespace MyImplementation
         {
             
             if(_showMsg)Console.Write("\tSorting Patches...");
-//            for (var i = 1; i < _patches.Count; i++)
-//            {
-//                var patch = _patches[i];
-//                if (patch.ColorValue != 0)
-//                {
-//                    Console.WriteLine("[" + patch.X + ", " + patch.Y + "] ScaleIndex: " + patch.ScaleIndex + "\t" +
-//                                      patch.AverageColor + "\t" + patch.NumberOfColors + "\t\t\t" + ReferenceEquals(patch, _patches[i-1]));
-//                }
-//            }
             _patches = _patches.OrderBy(v => v.ColorValue).ToList();
 
             if(_showMsg)Console.Write("\tPatches Sorted");
@@ -191,7 +172,6 @@ namespace MyImplementation
                     Console.Write("");
                 }
                 
-//                //todo Add check for other from same pixel
                 for (var i = currentPatch-1; i >= currentPatch - K*2.0 && i >= 0; i--)
                 {
                     if (_patches[currentPatch].X == _patches[i].X && _patches[currentPatch].Y == _patches[i].Y)
@@ -214,24 +194,14 @@ namespace MyImplementation
                     distances.Add(new Tuple<double, double>(colDist, distance));
                 }
                 
-
                 distances.Sort((x, y) => x.Item1.CompareTo(y.Item1));
-                //distances.Reverse();
                 var sum = 0.0;
                 for (var i = 0; i < K; i++)
                 {
                     sum += distances[i].Item2;
                 }
-//                if (sum != 0)
-//                {
-//                    Console.Write("");
-//                }
                 _patches[currentPatch].Saliency = 1.0 - Math.Exp(-invertedK * sum);
                 maximums[_patches[currentPatch].ScaleIndex] = Math.Max(maximums[_patches[currentPatch].ScaleIndex], _patches[currentPatch].Saliency);
-//                if (_patches[currentPatch].Saliency > 0)
-//                {
-//                    Console.WriteLine("["+_patches[currentPatch].X+","+_patches[currentPatch].Y+"] - " +  _patches[currentPatch].Saliency);
-//                }
                 
             }
             if(_showMsg)Console.Write("\tSaliency Sum Calculated");
@@ -285,8 +255,6 @@ namespace MyImplementation
                     }
                     else
                     {
-                        
-                        //sum += D(_patches[index], _patches[i]);
                         var colourDist = DColor(_patches[index].AverageColor, _patches[i].AverageColor);
                         colours[i].Add(colourDist);
                         maxDistance = maxDistance > colourDist ? maxDistance : colourDist;
@@ -303,8 +271,6 @@ namespace MyImplementation
                     }
 
                 }
-
-                //_patches[i].Saliency = 1.0 - Math.Exp(-(1.0 / K) * sum);
             }
 
             for (var i = 0; i < _patches.Count; i++)
@@ -355,9 +321,7 @@ namespace MyImplementation
                     }
 
                     var ratio = 1.0 - distanceToAttended / maxSize;
-//                    var ratio = 1.0;
                     var sum = pixel.Patches.Sum(patch => (patch.Saliency / maximums[patch.ScaleIndex] )*ratio);
-//                    var sum = pixel.Patches[1].Saliency;
                     pixel.AvgSaliency = ((1.0 / pixel.Patches.Length) * sum) /** Gaussian(pixel.X, pixel.Y)*/;
                     _maxAvg = Math.Max(pixel.AvgSaliency, _maxAvg);
                 }
@@ -392,16 +356,6 @@ namespace MyImplementation
 
         private static double DColor(LabColor c1, LabColor c2)
         {
-//            return Math.Sqrt(
-//                       Math.Pow((c1.a - c2.a)/100.0, 2)  +
-//                       Math.Pow((c1.b - c2.b)/100.0, 2) +
-//                       Math.Pow((c1.L - c2.L) /100.0, 2)
-//                   );
-//            return Math.Sqrt(
-//                Math.Pow((c1.a - c2.a), 2)  +
-//                Math.Pow((c1.b - c2.b), 2) +
-//                Math.Pow((c1.L - c2.L), 2)
-//            ) / MaxColorDistance;
             return Math.Sqrt(
                        Math.Pow((c1.a - c2.a), 2)  +
                        Math.Pow((c1.b - c2.b), 2) +
@@ -421,9 +375,7 @@ namespace MyImplementation
         {
             var amplitude = 1.0;
             return amplitude * Calculate2DGaussian(x, y);
-//            return CalculateGaussian(x, _middleWidht, amplitude, _gaussianHorizontalVariance) *
-//                   CalculateGaussian(y, _middleHeight, amplitude, _gaussianVerticalVariance);
-        }
+		}
 
         private double Calculate2DGaussian(double x, double y)
         {
@@ -470,33 +422,13 @@ namespace MyImplementation
 
         public void WriteSaliency(string outputPath, bool useAlternativeMap = false, List<double> maximums = null)
         {
-//            for (var i = 0; i < _pixels.Length; i++)
-//            {
-//                var pixelRow = _pixels[i];
-//                for (var index = 0; index < pixelRow.Length; index++)
-//                {
-//                    var pixel = pixelRow[index];
-//                    if (pixel.AvgSaliency != 0)
-//                    {
-//                        Console.WriteLine(pixel.X+", "+pixel.Y+"\t"+pixel.AvgSaliency);
-//                    
-//                    }
-//                }
-//            }
-            
             var image = useAlternativeMap ? CreateSaliencyMap2(maximums) : CreateSaliencyMap();
             image.Save(outputPath);
         }
         
         private Image CreateSaliencyMap()
         {
-
-            //create a new image of the right size
             Bitmap img = new Bitmap(_width, _height);
-            //double maxSaliencyValue = saliencyValues.Max();
-            //double minSaliencyValue = saliencyValues.Min();
-            
-            //Console.Write("\n\n\n"+maxSaliency+"\t\t"+minSaliency+"\n\n\n");
 
             for (var x = 0; x < _width; x++)
             {
@@ -508,8 +440,6 @@ namespace MyImplementation
                     {
                         Console.WriteLine(x+","+y+" - "+scaledSaliency+"\t"+color);
                     }
-                        //_pixels[110][110] + "\n" + _pixels[137][137] + "\n" + _pixels[124][124]
-//                    var color = GetColor(_pixels[x][y].AvgSaliency);
                     img.SetPixel(x, y, color);
                     
                 }
@@ -529,9 +459,6 @@ namespace MyImplementation
             {
                 for (var y = 0; y < _height; y++)
                 {
-//                    var color = _pixels[x][y].Patches[0].ColorValue > 0
-//                        ? converter.ToRGB(_pixels[x][y].Patches[0].AverageColor)
-//                        : Color.AliceBlue;
                     var scaledSaliency = _pixels[x][y].Patches[0].Saliency / maximums[0];
                     var color = GetColor(scaledSaliency);
                     img.SetPixel(x, y, color);

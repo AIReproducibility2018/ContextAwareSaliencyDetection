@@ -1,4 +1,3 @@
-
 import os
 from random import shuffle
 from shutil import copyfile
@@ -7,9 +6,8 @@ from shutil import copyfile
 def getImagePaths(folderPath):
     return os.listdir(folderPath)
 
-
-input_path = 'Input/'
-output_path = 'Output/'
+input_path = 'ALLSTIMULI/ALLSTIMULI/'
+output_path = 'Input/'
 
 files = getImagePaths(input_path)
 

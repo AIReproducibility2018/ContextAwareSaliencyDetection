@@ -1,0 +1,36 @@
+DATA
+Name of data set: Saliency Detection: A Spectral Residual Approach
+Link to data set: http://www.houxiaodi.com/assets/papers/cvpr07supp.zip
+Version of data set:
+License of data set:
+Is the data set preprocessed: No
+Link to preprocessed data:
+Version of preprocessed data:
+License of preprocessed data:
+
+Name of data set: learning to predict where humans look
+Link to data set: http://people.csail.mit.edu/tjudd/WherePeopleLook/index.html
+Version of data set:
+License of data set:
+Is the data set preprocessed: No
+Link to preprocessed data:
+Version of preprocessed data:
+License of preprocessed data:
+
+EXPERIMENT
+Method source code: ContextAwareSaliencyDetection
+Link to method source code: https://github.com/AIReproducibility2018/ContextAwareSaliencyDetection
+Method source code version: 
+Method source code license: 
+Experiment source code: ContextAwareSaliencyDetection
+Link to experiment source code: https://github.com/AIReproducibility2018/ContextAwareSaliencyDetection
+Experiment source code version: 
+Experiment source code license: 
+Hardware description:
+	* CPU vendor and type: Intel 5Y10
+	* Size of primary memory (RAM): 8 GB
+	* Size of secondary memory (Harddisk):  256 GB
+Operating system and version: Windows 10 Home, Version: 17134.48
+Ancillary software and version: Colourful 1.2.2
+Link to ancillary software and version: https://github.com/tompazourek/Colourful
+Link to explicit results: 

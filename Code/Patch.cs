@@ -12,7 +12,7 @@ namespace MyImplementation
         public double ColorValue { get; private set; }
 
 
-        public Patch(IReadOnlyCollection<LabColor> colors, int x, int y, int scaleIndex)
+        public Patch(IList<LabColor> colors, int x, int y, int scaleIndex)
         {
             NumberOfColors = colors.Count;
             CalculateAverage(colors);
@@ -32,7 +32,7 @@ namespace MyImplementation
             ColorValue = AverageColor.L + AverageColor.a + AverageColor.b;
         }
 
-        private void CalculateAverage(IReadOnlyCollection<LabColor> colors)
+        private void CalculateAverage(IList<LabColor> colors)
         {
             double l = 0.0, a = 0.0, b = 0.0;
             double size = colors.Count;

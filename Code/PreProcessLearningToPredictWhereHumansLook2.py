@@ -1,9 +1,9 @@
 import os
 from shutil import copyfile
 
-truth_path = 'Database 17/Output/'
+truth_path = 'ALLFIXATIONMAPS/ALLFIXATIONMAPS/'
 input_path = 'Input/'
-output_path = 'Output/'
+output_path = 'Truth/'
 
 def getImagePaths(folderPath):
     return os.listdir(folderPath)
@@ -14,7 +14,7 @@ for input_name in input_names:
 
     before_file = input_name.split('.')[0]
 
-    truth_name = input_name#before_file + '_fixPts.jpg'
+    truth_name = input_name
 
     src = truth_path + truth_name
     dst = output_path + input_name

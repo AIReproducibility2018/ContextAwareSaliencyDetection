@@ -1,7 +1,0 @@
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\bin\Debug\MyImplementation.exe
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\bin\Debug\MyImplementation.pdb
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\bin\Debug\Colourful.dll
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\bin\Debug\Colourful.xml
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\obj\Debug\MyImplementation.csprojResolveAssemblyReference.cache
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\obj\Debug\MyImplementation.exe
-D:\Development\Master\Context-Aware Saliency Detection\Implementation\SaliencyDetection\MyImplementation\obj\Debug\MyImplementation.pdb

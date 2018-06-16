@@ -11,20 +11,18 @@ namespace MyImplementation
     {
         public static void Main(string[] args)
         {
-            var is14 = false;
-            var dataset = new DataSet(is14);
-            Console.Write("Images from: "+dataset.InputPath+"\n");
-//            var inputPaths = GetPaths(dataset.InputPath).GetRange(0,1);
-            var inputPaths = GetPaths(dataset.InputPath);
+            var inputPath = "../../Input/";
+            var outputPath = "../../Output/";
+            var inputPaths = GetPaths(inputPath);
             Console.Write(inputPaths.Count + " image(s)\n");
             var index = 0.0;
-            foreach (var inputPath in inputPaths)
+            foreach (var inputImagePath in inputPaths)
             {
                 Console.Write("\nProgress: " + (index/inputPaths.Count)*100 + "%");
-                var temp = inputPath.Split('/');
+                var temp = inputImagePath.Split('/');
                 var imageName = temp[temp.Length - 1];
-                var outputPath = dataset.OutputPath + imageName;
-                Method method = new Method(inputPath, outputPath);
+                var outputImagePath = outputPath + imageName;
+                Method method = new Method(inputImagePath, outputImagePath);
                 index++;
             }
             Console.Write("\nCompleted");
